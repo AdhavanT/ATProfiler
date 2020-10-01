@@ -11,33 +11,33 @@ ATP_REGISTER(with_profiling);
 ATP_REGISTER(without_profiling);
 ATP_REGISTER(blanktest);
 
-void emptytest()
+void emptytest(int32 iterations)
 {
 	int64 bla = 0;
-	for (int64 i = 0; i < 100000; i++)
+	for (int64 i = 0; i < iterations; i++)
 	{
 		bla++;
 	}
 }
 
-void nonemptytest()
+void nonemptytest(int32 iterations)
 {
 	int64 bla = 0;
-	for (int64 i = 0; i < 100000; i++)
+	for (int64 i = 0; i < iterations; i++)
 	{
 		ATP_BLOCK(blanktest);
 		bla++;
 	}
 }
 
-void test()
+void test(int32 iterations)
 {
 	ATP_START(without_profiling);
-	emptytest();
+	emptytest(iterations);
 	ATP_END(without_profiling);
 
 	ATP_START(with_profiling);
-	nonemptytest();
+	nonemptytest(iterations);
 	ATP_END(with_profiling);
 
 
@@ -45,20 +45,15 @@ void test()
 
 void print_all_tests()
 {
-	ATP::TestType* it = ATP::testtype_list_global_front;
-	if (it == nullptr)
+	for(int i = 0 ; i < ATP::global_testtypes->length; i++)
 	{
-		return;
-	}
-	while (it->next_node != nullptr)
-	{
-		std::cout << "Test '" << it->name << "' ran for :" << it->info.test_run_cycles << " cycles. ( or " << ATP::get_ms_from_test(*it) << " milliseconds)\n";
-		it = it->next_node;
+		ATP::TestType it = ATP::global_testtypes->at(i);
+		std::cout << "Test '" << it.name << "' ran for :" << it.info.test_run_cycles << " cycles. ( or " << ATP::get_ms_from_test(it) << " milliseconds)\n";
 	}
 }
 
 int main()
 {
-	test();
+	test(1000);
 	print_all_tests();
 }
