@@ -1,6 +1,4 @@
-#ifndef ATP_CONFIG_IS_INCLUDED
-#define ATP_CONFIG_IS_INCLUDED
-
+#pragma once
 
 //Uncomment to use win32 QueryPerformanceCounter() instead of _rdtsc()
 #define ATP_USE_QPC
@@ -19,4 +17,3 @@
 //Number of test type memory to add onto buffer in case of overflowing ATP_TESTTYPE_BUFFER_INIT_CAPACITY
 #define ATP_TESTTYPE_BUFFER_OVERFLOW_ADDON 5
 
-#endif

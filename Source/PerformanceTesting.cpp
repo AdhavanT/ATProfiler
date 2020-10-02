@@ -29,18 +29,36 @@ void nonemptytest(int32 iterations)
 		bla++;
 	}
 }
+#pragma optimize("", off)
+
+ATP_REGISTER(fl);
+void perform_cast_float(float iterations)
+{
+	ATP_BLOCK(fl);
+	float a = 0;
+	for (float i = 0; i < iterations; i++)
+	{
+		float fl = (float)a + i;
+	}
+}
+
+ATP_REGISTER(in);
+void perform_cast_int(int iterations)
+{
+	ATP_BLOCK(in);
+	char a = '0';
+	for (int i = 0; i < iterations; i++)
+	{
+		int fl = (int)a + i;
+	}
+}
+#pragma optimize("", on)
+
 
 void test(int32 iterations)
 {
-	ATP_START(without_profiling);
-	emptytest(iterations);
-	ATP_END(without_profiling);
-
-	ATP_START(with_profiling);
-	nonemptytest(iterations);
-	ATP_END(with_profiling);
-
-
+	perform_cast_float(iterations);
+	perform_cast_int(iterations);
 }
 
 void print_all_tests()
@@ -54,6 +72,6 @@ void print_all_tests()
 
 int main()
 {
-	test(1000);
+	test(10000000);
 	print_all_tests();
 }

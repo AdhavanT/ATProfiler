@@ -1,3 +1,4 @@
+#define ATP_IS_IMPLEMENTATION
 #include "atp.h"
 
 #ifndef ATP_TURN_OFF
@@ -5,7 +6,41 @@
 namespace ATP
 {
 
-    
+    struct TestType_DBuffer
+    {
+        int32 length;
+        int32 capacity;
+        TestType* front = (TestType*)0;
+
+        TestType* add(TestType& new_member)
+        {
+            length++;
+            if (length > capacity)
+            {
+                capacity = capacity + ATP_TESTTYPE_BUFFER_OVERFLOW_ADDON;
+                TestType* temp = (TestType*)ATP_REALLOC(front, capacity * sizeof(TestType));
+                ATP_ASSERT(temp);
+                front = temp;
+            }
+
+            TestType* temp = front;
+            temp = temp + (length - 1);
+            *temp = new_member;
+            return temp;
+        }
+
+        void clear_buffer()
+        {
+            length = 0;
+            ATP_FREE(front);
+        }
+
+        inline TestType& at(int32 index)
+        {
+            ATP_ASSERT(index >= 0 && index < length);
+            return (front[index]);
+        }
+    };
 
     //NOTE: This is a pointer that is dynamically allocated cause it'll be zeroed out on dynamic initillization
     //that happens before main and after all testtypes register themselves if it's a normal global variable
