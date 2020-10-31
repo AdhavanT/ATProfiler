@@ -1,6 +1,17 @@
 #define ATP_IS_IMPLEMENTATION
 #include "atp.h"
 
+//Used for memory allocation in free, malloc, realloc
+#ifdef _WIN32 
+#include <corecrt_malloc.h>
+#else
+#include <stdlib.h>
+#endif
+#define ATP_REALLOC realloc
+#define ATP_CALLOC calloc
+#define ATP_FREE free
+
+
 #ifndef ATP_TURN_OFF
 
 namespace ATP
@@ -65,6 +76,12 @@ namespace ATP
         return global_testtypes->add(test_type);
     }
 
+
+    TestType* get_testtype_registry(int32& no_of_testtypes)
+    {
+        no_of_testtypes = global_testtypes->length;
+        return global_testtypes->front;
+    }
 
     TestType* lookup_testtype(const char* name)
     {
