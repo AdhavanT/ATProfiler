@@ -16,4 +16,3 @@
 
 //Number of test type memory to add onto buffer in case of overflowing ATP_TESTTYPE_BUFFER_INIT_CAPACITY
 #define ATP_TESTTYPE_BUFFER_OVERFLOW_ADDON 5
-

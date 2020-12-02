@@ -10,3 +10,5 @@ Release/
 **.vcxproj.filters
 **.vcxproj.user
 
+# Example
+PerformanceTesting.cpp
