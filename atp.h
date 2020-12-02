@@ -1,8 +1,6 @@
 #ifndef ATP_HEADER_IS_INCLUDED
 #define ATP_HEADER_IS_INCLUDED
 
-#define ATP_USE_CONFIG
-
 /*
 TODO for anyone: This Library doesn't use any C++ features (mostly just syntax) and can easily be ported to C.
 
