@@ -36,17 +36,7 @@ ATP builds a global buffer to hold all "TestType"s
         }
 
 */
-#ifdef ATP_USE_CONFIG
 #include "atp_config.atp"
-#else
-//Defaults
-#define ATP_TESTTYPE_BUFFER_INIT_CAPACITY 5
-#define ATP_TESTTYPE_BUFFER_INIT_OVERFLOW_ADDON 5
-#define ATP_USE_QPC
-//#define ATP_ONLY_ON_DEBUG
-//#define ATP_TURN_OFF
-
-#endif
 
 
 #ifdef ATP_ONLY_ON_DEBUG
@@ -56,11 +46,6 @@ ATP builds a global buffer to hold all "TestType"s
 #endif
 
 
-#ifdef _DEBUG
-#define ATP_ASSERT(x) if(!(x)) __debugbreak();
-#else
-#define ATP_ASSERT(X)
-#endif 
 
 //Dependencies 
 
@@ -192,20 +177,13 @@ namespace ATP
 #endif
 
 
-#ifndef ATP_IS_IMPLEMENTATION
-
-//Removing libraries macros 
-
-#undef ATP_TESTTYPE_BUFFER_INIT_CAPACITY 
-#undef ATP_TESTTYPE_BUFFER_INIT_OVERFLOW_ADDON 
-#undef ATP_USE_QPC
-#undef ATP_ONLY_ON_DEBUG
-#undef ATP_TURN_OFF
-#undef ATP_ASSERT 
+//Removing libraries config macros 
+#define ATP_CONFIG_UNDEF
+#include "atp_config.atp"
+#undef ATP_CONFIG_UNDEF
 
 #ifdef _WIN32
 #undef WIN32_LEAN_AND_MEAN
 #undef ATP_USE_QPC
-#endif
 #endif
 #endif // !ATP_HEADER_IS_INCLUDED

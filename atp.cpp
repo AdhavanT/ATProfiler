@@ -1,5 +1,6 @@
 #define ATP_IS_IMPLEMENTATION
 #include "atp.h"
+#include "atp_config.atp"
 
 //Used for memory allocation in free, malloc, realloc
 #ifdef _WIN32 
@@ -11,6 +12,11 @@
 #define ATP_CALLOC calloc
 #define ATP_FREE free
 
+#ifdef _DEBUG
+#define ATP_ASSERT(x) if(!(x)) __debugbreak();
+#else
+#define ATP_ASSERT(X)
+#endif 
 
 #ifndef ATP_TURN_OFF
 

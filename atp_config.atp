@@ -1,9 +1,9 @@
-#pragma once
+#ifndef ATP_CONFIG_UNDEF
 
 //Uncomment to use win32 QueryPerformanceCounter() instead of _rdtsc()
 #define ATP_USE_QPC
 
-//Uncomment to auto turn off ATP on release builds
+//Uncomment to auto turn off ATP on release builds (must be accounted for in usage code)
 //#define ATP_ONLY_ON_DEBUG
 
 //Uncomment to turn off ATP 
@@ -16,3 +16,11 @@
 
 //Number of test type memory to add onto buffer in case of overflowing ATP_TESTTYPE_BUFFER_INIT_CAPACITY
 #define ATP_TESTTYPE_BUFFER_OVERFLOW_ADDON 5
+
+#else
+#undef ATP_TESTTYPE_BUFFER_INIT_CAPACITY 
+#undef ATP_TESTTYPE_BUFFER_INIT_OVERFLOW_ADDON 
+#undef ATP_USE_QPC
+#undef ATP_ONLY_ON_DEBUG
+#undef ATP_TURN_OFF
+#endif
