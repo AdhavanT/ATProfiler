@@ -112,6 +112,9 @@ namespace ATP
 
 //Defining macros :
 
+// ATP_GET_TESTTYPE(name)          //quick macro to alias pointer to specified TestType in same compilation unit
+// ATP_EXTERN_REGISTER(name)       //Use to Call a TestType registered in a different compilation unit
+
 //For SINGULAR testtypes
 // ATP_REGISTER(name)              //Use to Register a TestType. Place in global scope.
 // ATP_EXTERN_REGISTER(name)       //Use to Call a TestType registered in a different compilation unit
@@ -121,7 +124,6 @@ namespace ATP
 
 //For MULTI testtypes 
 // ATP_REGISTER_M(name, default_size)            //Use to Register a TestType. Place in global scope. 
-// ATP_EXTERN_REGISTER(name)                     //Use to Call a TestType registered in a different compilation unit
 // ATP_START_M(name)                             //Use to start test (same as ATP_START())
 // ATP_END_M(name, index)                        //Use to end timer and register testinfo of index test
 // ATP_BLOCK_M(name, index)                      //Scoped ATP_START() and ATP_END() block
@@ -134,14 +136,19 @@ namespace ATP
 #include <Windows.h>
 #undef WIN32_LEAN_AND_MEAN
 
+
+//Used to call to a test registered in a different compilation unit 
+#define ATP_EXTERN_REGISTER(name) \
+     extern ATP::TestType *ATPTESTTYPE_##name;
+
+//quick macro to alias pointer to specified TestType in same compilation unit
+#define ATP_GET_TESTTYPE(name) (ATPTESTTYPE_##name)
+
 //---------------------<SINGULAR TESTTYPE>-----------------------------
 //Use to Register a SINGULAR TestType. Place in global scope.
 #define ATP_REGISTER(name) \
      ATP::TestType *ATPTESTTYPE_##name= ATP::add_singular_testtype_to_registry(#name)
 
-//Used to call to a test registered in a different compilation unit 
-#define ATP_EXTERN_REGISTER(name) \
-     extern ATP::TestType *ATPTESTTYPE_##name;
 
 #ifdef ATP_USE_QPC
 //Use to start test (using qpc to time)
