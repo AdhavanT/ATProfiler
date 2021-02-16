@@ -11,4 +11,4 @@ Release/
 **.vcxproj.user
 
 # Example
-PerformanceTesting.cpp
+examples/
