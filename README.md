@@ -42,7 +42,8 @@ static void test_allocators(PL &pl)
 ### Using multi-test types:
 
 ```
-//Use 0 to specify number of tests will be assigned during runtime. Otherwise use the total number of tests (tests will be allocated by ATP) 
+//Use 0 to specify number of tests will be assigned during runtime. 
+//Otherwise use the total number of tests (tests will be allocated by ATP) 
 ATP_REGISTER_M(Tiles, 0);
 static b32 render_tile_from_camera(uint32 tile_no, RayCastTools& tools)
 {
